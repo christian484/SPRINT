@@ -20,4 +20,3 @@ jar cvf %JAR_FILE% -C %CLASSES_DIR% .
 
 REM supprimer le dossier contenant les .classes 
 rmdir /s /q  %CLASSES_DIR%
-

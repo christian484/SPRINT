@@ -10,7 +10,7 @@ set "CLASSES_DIR=java"
 
 
 REM Nom de votre fichier JAR
-set "JAR_FILE=application.jar"
+set "JAR_FILE=jiren.jar"
 
 REM Compilez tous les fichiers .java
 javac -d  %CLASSES_DIR% %JAVA_DIR%\*.java

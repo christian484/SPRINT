@@ -1,4 +1,4 @@
-package dossier;
+package pattern;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -6,7 +6,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import init.Controller;
+import initialise.Controller;
 import java.util.List;
 import java.util.ArrayList;
 import jakarta.servlet.ServletContext;
@@ -14,8 +14,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.Enumeration;
 
-    public class FrontController extends HttpServlet {
-        List<String> controllerList;
+public class FrontController extends HttpServlet {
+    List<String> controllerList;
     boolean initialized = false;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -23,7 +23,7 @@ import java.util.Enumeration;
         response.setContentType("text/html;charset=UTF-8");
 
         if (!initialized) {
-            Controller_init();
+            initializeControllers();
         }
 
         try (PrintWriter out = response.getWriter()) {
@@ -44,7 +44,8 @@ import java.util.Enumeration;
             out.println("</html>");
         }
     }
-    private void Controller_init() {
+
+    private void initializeControllers() {
         controllerList = new ArrayList<>();
         try {
             ServletContext context = getServletContext();

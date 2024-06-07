@@ -2,11 +2,14 @@ package pattern;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import initiale.*;
@@ -42,6 +45,20 @@ public class FrontController extends HttpServlet {
                 out.println("<p> Classe : " + mapping.getKey() + "</p>");
                 out.println("<p> Mehtode: " + mapping.getValue() + "</p>");
                 out.println("<p> Value returned : " + this.utl.callMethod(mapping) + "</p>");
+                Object o = this.utl.callMethod(mapping);
+
+                if(o instanceof String) {
+                    out.println(o.toString());
+                } else if (o instanceof ModelView) {
+                    ModelView mv = (ModelView) o;
+                    RequestDispatcher disp = request.getRequestDispatcher(mv.getName());
+
+                    for(Map.Entry<String, Object> entry : mv.getList().entrySet()) {
+                        request.setAttribute(entry.getKey(), entry.getValue());
+                    }
+
+                    disp.forward(request, response);
+                }
             } else {
                 out.println("<p> Error 404 : Not found </p>");
             }
